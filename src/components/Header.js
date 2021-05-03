@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import userContext from '../context/user';
 import * as ROUTES from '../constants/routes';
 import useUser from '../hooks/use-user';
+import { DEFAULT_IMAGE_PATH } from '../constants/paths';
 
 function Header() {
 	const { firebase } = useContext(FirebaseContext);
@@ -27,7 +28,7 @@ function Header() {
 						</h1>
 					</div>
 					<div className="text-gray-700 text-center flex items-center align-items">
-						{user ? (
+						{loggedInUser ? (
 							// IF User exists
 							<>
 								<Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
@@ -77,17 +78,20 @@ function Header() {
 									</svg>
 								</button>
 								{/* User Avatar */}
-								<div className="flex items-center cursor-pointer">
-									{user ? (
-										<Link to={`/p/${user.username}`}>
+								{user && (
+									<div className="flex items-center cursor-pointer">
+										<Link to={`/p/${user?.username}`}>
 											<img
 												className="rounded-full h-8 w-8 flex"
 												src={`/images/avatars/${user?.username}.jpg`}
-												alt={`profile`}
+												alt={`${user?.username} profile`}
+												onError={(e) => {
+													e.target.src = DEFAULT_IMAGE_PATH;
+												}}
 											/>
 										</Link>
-									) : null}
-								</div>
+									</div>
+								)}
 							</>
 						) : (
 							// If user does not exist
