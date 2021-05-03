@@ -2,8 +2,10 @@ import propType from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 
-const User = ({ username, fullname }) =>
-	!username || !fullname ? (
+function User({ username, fullname }) {
+	console.log(username);
+	console.log(fullname);
+	return !username || !fullname ? (
 		<Skeleton count={1} height={61} />
 	) : (
 		<Link
@@ -23,6 +25,7 @@ const User = ({ username, fullname }) =>
 			</div>
 		</Link>
 	);
+}
 
 export default User;
 
