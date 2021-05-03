@@ -8,7 +8,6 @@ function Profile() {
 	const history = useHistory();
 	const { username } = useParams();
 	const [userExist, setUserExist] = useState(false);
-	const [userProfile, setUserProfile] = useState(null);
 
 	useEffect(() => {
 		async function checkUserExists() {
